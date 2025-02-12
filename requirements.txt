@@ -2,3 +2,4 @@ Flask
 Gunicorn
 beautifulsoup4
 requests
+flask-cors
