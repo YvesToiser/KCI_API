@@ -2,11 +2,15 @@ from flask import Flask, request, jsonify
 import requests
 from bs4 import BeautifulSoup
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
 CORS(app)
-WHITELISTED_IPS = ["127.0.0.1", ""]
+load_dotenv()
+whitelisted_ips_str = os.getenv('WHITELISTED_IPS', '')
+WHITELISTED_IPS = [ip.strip() for ip in whitelisted_ips_str.split(',') if ip.strip()]
 
 @app.route('/KC', methods=['GET'])
 def KC():
