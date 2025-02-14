@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from flask_cors import CORS
 from dotenv import load_dotenv
+
 import os
 
 app = Flask(__name__)
@@ -27,11 +28,20 @@ def KC():
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
         zentriert_cells = soup.find_all("td", attrs={"class": "zentriert"})
-        end_last = zentriert_cells[2].text.strip()
-        if end_last == "":
-            return "yes"
-        else:
-            return "no"
+        hauptlink_cells = soup.find_all("td", attrs={"class": "hauptlink"})
+
+        last_injury_date = zentriert_cells[2].text.strip()
+        is_injured = last_injury_date == ""
+        injury_type = hauptlink_cells[0].text.strip()
+
+        injury_info = {
+            "isInjured": is_injured,
+            "lastInjuryDate": last_injury_date,
+            "InjuryType": injury_type
+        }
+
+        return jsonify(injury_info)
+
     else:
         return "request_failed"
 
