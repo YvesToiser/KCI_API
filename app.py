@@ -22,7 +22,7 @@ def KC():
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
     }
-    url = "https://www.transfermarkt.en/kingsley-coman/verletzungen/spieler/243714/plus/1"
+    url = "https://www.transfermarkt.com/kingsley-coman/verletzungen/spieler/243714/plus/1"
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
